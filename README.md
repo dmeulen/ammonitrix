@@ -14,6 +14,7 @@ Event-Based Monitoring Framework
 * We do not want any proprietary exchange protocols. In other words - client-server communication should use HTTP with JSON as data exchange format
 * We do not want to vendor-lock instances to our agent. We want to allow applications to report monitoring data to the server without the need to write plugins outside of the application (think Codahale and Graphite)
 * We want "Graphite for non-integer data"
+* We want a system that's easy to deploy and distribute (no external deps, hashicorp-style, so probably written in Go ;))
 
 ## Agent side
 * Agent is stateless
