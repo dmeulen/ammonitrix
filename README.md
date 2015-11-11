@@ -1,5 +1,7 @@
-# EBMF
+# Ammonitrix
 Event-Based Monitoring Framework
+
+Ammonitrix (latin): she that admonishers/reminds
 
 # Discussed entry points
 
