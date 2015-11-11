@@ -40,4 +40,8 @@ Ammonitrix (latin): she that admonishers/reminds
 * Excplicitly based on server-API, no direct data access
 * UI is a domain where I'm a little bit braindead, but will give it some thought later on, otherwise feel free to fill this out
 
+## Tech stack
+* Language: Go (yeah, I'm biased for now, but I love the distribution model)
+* Data store: ElasticSearch (gives us API to work with data out of box)
+* Data format: JSON (as API, as stored data, as implied by ES)
 
