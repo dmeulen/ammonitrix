@@ -45,3 +45,50 @@ Ammonitrix (latin): she that admonishers/reminds
 * Data store: ElasticSearch (gives us API to work with data out of box)
 * Data format: JSON (as API, as stored data, as implied by ES)
 
+## Proposed data format examples
+
+```
+curl -XPOST 'localhost:9200/ammonitrix/event' -d '
+{
+    "timestamp": 123456789,
+    "name": "check_disk",
+    "hostname": "mp-shellserver001.ops.ams01.marktplaats.nl",
+    "alert_individually": "true",
+    "check_data": [
+        {
+            "/ free": 90,
+            "/var free": 40
+        }
+    ]
+}'
+```
+
+```
+curl -XPOST 'localhost:9200/ammonitrix/event' -d '{
+    "timestamp": 123456789,
+    "name": "check_elasticsearch_indices",
+    "hostname": "mp-shellserver001.ops.ams01.marktplaats.nl",
+    "tags": ["application", "elasticsearch"],
+    "alert_individually": true,
+    "check_data": [
+        {
+            "index_name": "ads",
+            "healthy_shards": 6,
+            "shards_missing_replicas": 0
+        }
+    ]
+}'
+```
+
+```
+curl -XGET 'localhost:9200/ammonitrix/_search' -d '
+{
+  "query": {
+    "bool": {
+      "must": [
+        { "match": { "tags": "application" }}
+      ]
+    }
+  }
+}'
+```

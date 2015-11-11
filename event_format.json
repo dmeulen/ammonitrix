@@ -2,13 +2,13 @@
     "timestamp": 123456789,
     "name": "check_disk",
     "hostname": "mp-shellserver001.ops.ams01.marktplaats.nl",
-    "tags": ["system", "disk"],
-    "alert_individually": true,
-    "check_data": {
-        // this can be literally anything
-        "/ free": 90,
-        "/var free": 40
-        },
+    "alert_individually": "true",
+    "check_data": [
+        {
+            "/ free": 90,
+            "/var free": 40
+        }
+    ]
 }
 
 {
@@ -17,10 +17,13 @@
     "hostname": "mp-shellserver001.ops.ams01.marktplaats.nl",
     "tags": ["application", "elasticsearch"],
     "alert_individually": true,
-    "check_data": {
-        // this can be literally anything
-        "index_name": "ads",
-        "healthy_shards": 6,
-        "shards_missing_replicas": 0
-        },
+    "check_data": [
+        {
+            "index_name": "ads",
+            "healthy_shards": 6,
+            "shards_missing_replicas": 0
+        }
+    ]
 }
+
+
