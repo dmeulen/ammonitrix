@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+
+	"github.com/eBayClassifiedsGroup/ammonitrix/config"
 )
 
 func handleRegister(w http.ResponseWriter, r *http.Request) {
@@ -20,10 +22,12 @@ func handleData(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var valid bool
-	var datagram Datagram
+	var datagram config.Datagram
 	if valid, datagram = validateDataRequest(r.Body); valid != true {
 		http.Error(w, "Invalid request received", 500)
+		return
 	}
+	be_elastic.StoreDatagram(datagram)
 	err := json.NewEncoder(w).Encode(datagram)
 	if err != nil {
 		http.Error(w, "Failed to encode datagram", 500)

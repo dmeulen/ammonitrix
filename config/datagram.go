@@ -1,4 +1,4 @@
-package receiver
+package config
 
 type Datagram struct {
 	Timestamp  int         `json:"timestamp"`

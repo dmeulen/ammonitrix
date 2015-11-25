@@ -10,13 +10,11 @@ import (
 
 var quit = make(chan bool)
 
-func StartListener(listen []config.Listen, h http.Handler) {
-	for _, l := range listen {
-		http.HandleFunc("/register", handleRegister)
-		http.HandleFunc("/data", handleData)
-		http.HandleFunc("/deregister", handleDeregister)
-		go http.ListenAndServe(l.Addr, h)
-	}
+func StartListener(cfg *config.Config) {
+	http.HandleFunc("/register", handleRegister)
+	http.HandleFunc("/data", handleData)
+	http.HandleFunc("/deregister", handleDeregister)
+	go http.ListenAndServe(cfg.Listen.Port, nil)
 
 	// wait for shutdown signal
 	<-quit

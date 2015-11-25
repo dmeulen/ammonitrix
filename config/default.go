@@ -1,12 +1,12 @@
 package config
 
 var DefaultConfig = &Config{
-	Listen: []Listen{
-		{
-			Addr: ":5858",
-		},
+	Listen: Listen{
+		Port: ":5858",
 	},
-	UI: UI{
-		Addr: ":5859",
+	Elastic: Elastic{
+		Host:      "localhost",
+		Port:      ":9200",
+		IndexName: "ammonitrix",
 	},
 }

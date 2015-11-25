@@ -1,14 +1,16 @@
 package config
 
 type Config struct {
-	Listen []Listen
-	UI     UI
+	Listen  Listen
+	Elastic Elastic
 }
 
 type Listen struct {
-	Addr string
+	Port string
 }
 
-type UI struct {
-	Addr string
+type Elastic struct {
+	Host      string
+	Port      string
+	IndexName string
 }

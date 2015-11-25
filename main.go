@@ -29,5 +29,7 @@ func main() {
 		cfg = loadConfig(filename)
 	}
 
-	receiver.StartListener(cfg.Listen, nil)
+	receiver.InitElastic(cfg)
+	receiver.StartListener(cfg)
+
 }

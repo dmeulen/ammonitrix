@@ -4,11 +4,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+
+	"github.com/eBayClassifiedsGroup/ammonitrix/config"
 )
 
-func validateDataRequest(body io.Reader) (bool, Datagram) {
+func validateDataRequest(body io.Reader) (bool, config.Datagram) {
 	decoder := json.NewDecoder(body)
-	var d Datagram
+	var d config.Datagram
 	err := decoder.Decode(&d)
 	if err != nil {
 		fmt.Println(err)
