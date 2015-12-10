@@ -21,20 +21,25 @@ func NewReceiver(config *config.Config) (*Receiver, error) {
 	return r, nil
 }
 
-var quit = make(chan bool)
+var quit = make(chan error)
 
 func (r *Receiver) StartListener() error {
 
 	http.HandleFunc("/register", r.handleRegister)
 	http.HandleFunc("/data", r.handleData)
 	http.HandleFunc("/deregister", r.handleDeregister)
-	go http.ListenAndServe(r.Config.Listen.Port, nil)
+	go func() {
+		err := http.ListenAndServe(r.Config.Listen.Port, nil)
+		if err != nil {
+			quit <- err
+		}
+	}()
 
 	// wait for shutdown signal
-	<-quit
+	err := <-quit
 
 	// trigger graceful shutdown
-	log.Print("[INFO] Down")
+	log.Print("[INFO] Down: ", err)
 
 	return nil
 }

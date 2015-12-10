@@ -1,7 +1,6 @@
 package receiver
 
 import (
-	"encoding/json"
 	"io"
 	"net/http"
 
@@ -27,9 +26,10 @@ func (r *Receiver) handleData(w http.ResponseWriter, req *http.Request) {
 		http.Error(w, "Invalid request received", 500)
 		return
 	}
-	r.Elastic.StoreDatagram(datagram)
-	err := json.NewEncoder(w).Encode(datagram)
+	resp, err := r.Elastic.StoreDatagram(datagram)
 	if err != nil {
-		http.Error(w, "Failed to encode datagram", 500)
+		http.Error(w, "Failed to store datagram", 500)
 	}
+
+	w.WriteHeader(resp.StatusCode)
 }
