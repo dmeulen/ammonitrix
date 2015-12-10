@@ -8,7 +8,7 @@ import (
 	"github.com/eBayClassifiedsGroup/ammonitrix/config"
 )
 
-func validateDataRequest(body io.Reader) (bool, config.Datagram) {
+func (r *Receiver) validateDataRequest(body io.Reader) (bool, config.Datagram) {
 	decoder := json.NewDecoder(body)
 	var d config.Datagram
 	err := decoder.Decode(&d)

@@ -8,26 +8,26 @@ import (
 	"github.com/eBayClassifiedsGroup/ammonitrix/config"
 )
 
-func handleRegister(w http.ResponseWriter, r *http.Request) {
+func (r *Receiver) handleRegister(w http.ResponseWriter, req *http.Request) {
 	io.WriteString(w, "registered!\n")
 }
 
-func handleDeregister(w http.ResponseWriter, r *http.Request) {
+func (r *Receiver) handleDeregister(w http.ResponseWriter, req *http.Request) {
 	io.WriteString(w, "deregistered!\n")
 }
 
-func handleData(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "PUT" {
+func (r *Receiver) handleData(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "PUT" {
 		http.Error(w, "Unsupported method", 405)
 		return
 	}
 	var valid bool
 	var datagram config.Datagram
-	if valid, datagram = validateDataRequest(r.Body); valid != true {
+	if valid, datagram = r.validateDataRequest(req.Body); valid != true {
 		http.Error(w, "Invalid request received", 500)
 		return
 	}
-	be_elastic.StoreDatagram(datagram)
+	r.Elastic.StoreDatagram(datagram)
 	err := json.NewEncoder(w).Encode(datagram)
 	if err != nil {
 		http.Error(w, "Failed to encode datagram", 500)

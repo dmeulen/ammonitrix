@@ -29,7 +29,19 @@ func main() {
 		cfg = loadConfig(filename)
 	}
 
-	receiver.InitElastic(cfg)
-	receiver.StartListener(cfg)
+	recv, err := receiver.NewReceiver(cfg)
+	if err != nil {
+		log.Fatal("[FATAL] Unable to start Receiver:", err)
+	}
+
+	err = recv.ConnectElastic()
+	if err != nil {
+		log.Fatal("[FATAL] Unable to connect to elasticsearch:", err)
+	}
+
+	err = recv.StartListener()
+	if err != nil {
+		log.Fatal("[FATAL] Unable to start listener:", err)
+	}
 
 }
