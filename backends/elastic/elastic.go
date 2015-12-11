@@ -44,3 +44,7 @@ func (e *Elastic) StoreDatagram(datagram config.Datagram) (*http.Response, error
 	}
 	return response, nil
 }
+
+func (e *Elastic) StoreRegistration(reg config.Register) (*http.Response, error) {
+	return nil, nil
+}
